@@ -1,0 +1,8 @@
+[iGemdockGUI]
+Version=2.9
+Author=Y.J.Chen & C.N.Ko
+Binding_Site_for_Analyzing=
+Analyzing_Output_Path=C:/Users/User/Desktop/iGEMDOCKv2.1/output//
+Electrostatic=1
+Hydrophobic=1
+Success_Docked_Poses=C:/Users/User/Desktop/iGEMDOCKv2.1/output/best_Pose/cav7meq_GBS-CSCS00000000025-2.pdb, C:/Users/User/Desktop/iGEMDOCKv2.1/output/best_Pose/cav7meq_GBS-CSCS00000000101-1.pdb
