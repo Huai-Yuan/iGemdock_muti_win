@@ -1,11 +1,9 @@
-# %%
 import os
 import json
 import shutil 
 import psutil
 import subprocess
 
-# %%
 class run:
     def __init__(self):
         pass
@@ -44,20 +42,20 @@ class run:
 
         # PDBFile
         PDBFiles = []
-        for i in os.listdir("./"):
+        for i in os.listdir("./Proteins/"):
             if i[-4:] == ".pdb":
                 PDBFiles.append(i)
         for i, _ in enumerate(PDBFiles):
             print(f"{[i]}: {_}")
         file = PDBFiles[int(input("Please select a PDBFile:"))]
         os.mkdir(f"./projects/{self.project}/Protein")
-        shutil.copy(f"./{file}", f"./projects/{self.project}/Protein")
+        shutil.copy(f"./Proteins/{file}", f"./projects/{self.project}/Protein")
         config["PDBfile"] = self.PDBfile = f"./projects/{self.project}/Protein/{file}"
 
         # Drug library
-        for i, _ in enumerate(os.listdir("./")):
+        for i, _ in enumerate(os.listdir("./Drugs/")):
             print(f"{[i]}: {_}")
-        config["DrugLib"] = self.DrugLib = "./" + os.listdir("./")[int(input("Please select a folder of drug library:"))] + "/"
+        config["DrugLib"] = self.DrugLib = "./Drugs/" + os.listdir("./Drugs/")[int(input("Please select a folder of drug library:"))] + "/"
 
         # cores
         print("Your CPU has " + str(psutil.cpu_count(logical = False)) + " cores.")
@@ -68,15 +66,22 @@ class run:
                  "Stable"   :[300, 80, 10],
                  "Accurate" :[800, 80, 10],
                  "Screening":[200, 70,  3],
-                 "Quick"    :[150, 70,  1]}
+                 "Quick"    :[150, 70,  1],
+                 "Custom"   :["-","-","-"]}
 
         for i, _ in enumerate(modes.keys()):
             print(f"[{i}] {_:9} PopSize:{modes[_][0]}, Generations:{modes[_][1]}, Number of solutions:{modes[_][2]}")
+        print()
         mode = int(input("Select mode:"))
 
-        config["PopSize"] = self.PopSize = modes[list(modes.keys())[mode]][0]
-        config["Generations"] = self.Generations = modes[list(modes.keys())[mode]][1]
-        config["Solutions"] = self.Solutions = modes[list(modes.keys())[mode]][2]
+        if mode == 5:
+            config["PopSize"] = self.PopSize = int(input("PopSize:"))
+            config["Generations"] = self.Generations = int(input("Generations:"))
+            config["Solutions"] = self.Solutions = int(input("Solutions:"))
+        else:
+            config["PopSize"] = self.PopSize = modes[list(modes.keys())[mode]][0]
+            config["Generations"] = self.Generations = modes[list(modes.keys())[mode]][1]
+            config["Solutions"] = self.Solutions = modes[list(modes.keys())[mode]][2]
         
         # save config
         with open(f'./projects/{self.project}/config.json', 'w') as f:
